@@ -261,6 +261,31 @@
           animation: blink 0.8s infinite;
         }
         @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- ADDED: Media query for overlay responsiveness --- */
+        @media (max-width: 767px) {
+          #vscode-sidebar {
+            display: none; 
+          }
+          #vscode-editor {
+            padding: 10px;
+            font-size: 13px;
+          }
+          #vscode-terminal {
+            height: 220px; 
+            font-size: 13px;
+          }
+          #terminal-input {
+            font-size: 13px;
+          }
+          #terminal-hint {
+            font-size: 11px;
+          }
+          #vscode-titlebar {
+            font-size: 12px;
+          }
+        }
+        /* --- END ADDED --- */
     </style>
 </head>
 <body class="antialiased">
@@ -681,7 +706,7 @@
 
     <script>
     const code = `
-    
+
 <span class="kw">from</span> flask <span class="kw">import</span> Flasks
 <span class="kw">from</span> utils <span class="kw">import</span> db_utils, cache_utils
 <span class="kw">import</span> requests
