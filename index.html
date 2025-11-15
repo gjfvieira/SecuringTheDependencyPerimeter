@@ -955,6 +955,7 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
 
     const baseCommands = ['ls', 'cat', 'cd', 'python', 'python3', 'pip install', 'help', 'clear', 'cls'];
     const simCommands = ['python3 app.py', 'pip install flasks'];
+    const exitCommand = ['exit'];
 
 
     function updatePrompt() {
@@ -994,6 +995,7 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
       if (stage === 0)    hint.textContent = "Hint: type “python3 app.py” (or 'help')";
       else if (stage === 1) hint.textContent = "Hint: type “pip install flasks” (or 'cat pip.conf')";
       else if (stage === 2) hint.textContent = "Hint: run “python3 app.py” again";
+      else if (stage === 3) hint.textContent = "Type 'exit' to continue to the report.";
       else hint.textContent = "";
     }
     
@@ -1002,11 +1004,13 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
           if (e.key === "Enter") {
             e.preventDefault();
             
-            if (stage === 3) {
+            let cmd = input.value.trim();
+
+            if (stage === 3 && cmd === 'exit') {
+                printTerm(`cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ exit`);
                 closeOverlay();
                 return;
             }
-            let cmd = input.value.trim();
             
             if (cmd !== "") {
                 commandHistory.push(cmd);
@@ -1025,15 +1029,20 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
                         terminal.removeChild(child);
                     }
                 });
-                stage = 0;
-                currentDir = 'root';
-                updatePrompt();
-                refreshHint();
+                if(stage !== 3) {
+                    stage = 0;
+                    currentDir = 'root';
+                    updatePrompt();
+                    refreshHint();
+                }
             }
             else if (cmd === 'help') {
                 printTerm("Follow the hints to run the simulation.");
                 printTerm("Available commands: ls, cat [file], cd [dir], clear, help");
                 printTerm("Simulation commands: python3 app.py, pip install flasks");
+                if (stage === 3) {
+                    printTerm("Type 'exit' to close this simulation and view the report.");
+                }
             }
             else if (cmd === 'cd utils' || cmd === 'cd utils/') {
                 if (currentDir === 'root') {
@@ -1136,9 +1145,8 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
                   printTerm("<strong style='color: #10b981;'>Securing the Dependency Perimeter</strong>");
                   printTerm("<strong>Authors: Gonçalo Vieira & Daniel Fernandes, MSI - UC 2025</strong>");
                   printTerm("<br>");
-                  printTerm("Press ENTER to continue to the report.");
+                  printTerm("<strong style='color:#facc15; background-color: #374151; padding: 2px 5px; border-radius: 3px;'>Type 'exit' to continue to the report, or keep exploring the terminal.</strong>");
             
-                  setTimeout(closeOverlay, 40000); 
               }
             }
         
@@ -1189,7 +1197,11 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
               const currentFiles = (currentDir === 'root') ? rootFiles : utilsFiles;
               const currentDirs = (currentDir === 'root') ? rootDirs : utilsDirs;
               const allFiles = [...currentFiles, ...currentDirs];
-              const allCommands = (currentDir === 'root') ? [...baseCommands, ...simCommands] : [...baseCommands, ...utilsCommands];
+              let allCommands = (currentDir === 'root') ? [...baseCommands, ...simCommands] : [...baseCommands, ...utilsCommands];
+
+              if (stage === 3) {
+                  allCommands = [...allCommands, ...exitCommand];
+              }
 
               if (parts.length === 0) return;
 
