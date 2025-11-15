@@ -216,6 +216,21 @@
         }
         @keyframes caret { 50% { border-color: transparent; } }
 
+        .file-link {
+            cursor: pointer;
+            display: block;
+            padding-left: 10px;
+            margin-left: -10px;
+            border-radius: 4px;
+        }
+        .file-link:hover {
+            background-color: #3a3a3a;
+        }
+        .file-link.active-file {
+            background-color: #004a99;
+            color: white;
+        }
+
         #terminal-resizer {
           height: 5px;
           background: #3a3a3a;
@@ -298,13 +313,13 @@
         <div id="vscode-sidebar">
           <strong>EXPLORER</strong><br><br>
           presentation/<br>
-          ├── app.py<br>
-          ├── pip.conf<br>
-          ├── sbom.json<br>
+          <span class="file-link active-file" data-filename="app.py">├── app.py</span>
+          <span class="file-link" data-filename="pip.conf">├── pip.conf</span>
+          <span class="file-link" data-filename="sbom.json">├── sbom.json</span>
           ├── utils/<br>
-          │   ├── db_utils.py<br>
-          │   └── cache_utils.py<br>
-          └── presentation.html
+          <span class="file-link" data-filename="db_utils.py">│   ├── db_utils.py</span>
+          <span class="file-link" data-filename="cache_utils.py">│   └── cache_utils.py</span>
+          <span class="file-link" data-filename="presentation.html">└── presentation.html</span>
         </div>
       
         <div id="vscode-editor">
@@ -851,6 +866,49 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
     let i = 0;
     const speed = 6;
     const codeOut = document.getElementById("code-output");
+    const titleBar = document.getElementById("vscode-titlebar");
+    const sidebar = document.getElementById("vscode-sidebar");
+
+    function showFileContent(filename) {
+        let content;
+        let fileTitle = filename;
+
+        switch (filename) {
+            case 'app.py':
+                content = code;
+                break;
+            case 'pip.conf':
+                content = pipConfContent.replace(/\n/g, "<br>");
+                break;
+            case 'sbom.json':
+                content = sbomJsonContent.replace(/\n/g, "<br>");
+                break;
+            case 'db_utils.py':
+                content = dbUtilsContent.replace(/\n/g, "<br>");
+                fileTitle = 'utils/db_utils.py';
+                break;
+            case 'cache_utils.py':
+                content = cacheUtilsContent.replace(/\n/g, "<br>");
+                fileTitle = 'utils/cache_utils.py';
+                break;
+            case 'presentation.html':
+                content = presentationHtmlContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                break;
+            default:
+                content = 'File not found.';
+        }
+        
+        codeOut.innerHTML = content;
+        titleBar.textContent = `CDSS Code IDE - Secure the Dependency Perimeter — ${fileTitle}`;
+
+        document.querySelectorAll('.file-link').forEach(link => {
+            if (link.dataset.filename === filename) {
+                link.classList.add('active-file');
+            } else {
+                link.classList.remove('active-file');
+            }
+        });
+    }
 
     function typeCode() {
       if (i < code.length) {
@@ -863,6 +921,13 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
     }
     if (document.getElementById("overlay-container")) {
         typeCode();
+
+        sidebar.addEventListener('click', (e) => {
+            if (e.target.classList.contains('file-link')) {
+                const filename = e.target.dataset.filename;
+                showFileContent(filename);
+            }
+        });
     }
     
     
@@ -883,7 +948,7 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
     const utilsFiles = ['db_utils.py', 'cache_utils.py'];
     const utilsDirs = ['../'];
 
-    const baseCommands = ['ls', 'cat', 'cd', 'python', 'python3', 'pip', 'help', 'clear', 'cls'];
+    const baseCommands = ['ls', 'cat', 'cd', 'python', 'python3', 'pip install', 'help', 'clear', 'cls'];
     const simCommands = ['python3 app.py', 'pip install flasks'];
 
 
@@ -994,7 +1059,7 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
                 printTerm(code.replace(/\n/g, "<br>"));
             }
             else if (cmd === "cat sbom.json" && currentDir === 'root') {
-                printTerm(sbomJsonContent.replace(/\n/g, "<br>"));
+                printTerm(Content.replace(/\n/g, "<br>"));
             }
             else if (cmd === "cat pip.conf" && currentDir === 'root') {
                 printTerm(pipConfContent.replace(/\n/g, "<br>"));
@@ -1099,7 +1164,18 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
               }
           } else if (e.key === "Tab") {
               e.preventDefault();
-              const line = input.value;
+              let line = input.value;
+
+              if (line.startsWith('pip install ') && currentDir === 'root' && stage === 1) {
+                  const argPart = line.substring('pip install '.length);
+                  const simMatch = 'flasks'.startsWith(argPart) ? 'flasks' : null;
+
+                  if (simMatch) {
+                      input.value = 'pip install ' + simMatch + ' ';
+                  }
+                  return;
+              }
+
               const parts = line.split(' ').filter(p => p.length > 0);
 
               const currentFiles = (currentDir === 'root') ? rootFiles : utilsFiles;
