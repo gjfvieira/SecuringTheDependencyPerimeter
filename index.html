@@ -262,6 +262,11 @@
             align-items: center;
         }
 
+        #terminal-prompt-text {
+            white-space: pre; 
+            flex-shrink: 0;
+        }
+
         #terminal-input {
           outline: none;
           border: none;
@@ -331,7 +336,7 @@
       <div id="vscode-terminal">
         
         <div id="terminal-input-container">
-          <div class="terminal-prompt-line">cdss-student@ucserver:~/presentation$ <input id="terminal-input" autofocus /></div>
+          <div class="terminal-prompt-line"><span id="terminal-prompt-text">cdss-student@ucserver:~/presentation$ </span><input id="terminal-input" autofocus /></div>
           <div id="terminal-hint">Hint: type “python3 app.py”</div>
         </div>
       </div>
@@ -954,7 +959,10 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
 
     function updatePrompt() {
         const promptText = `cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ `;
-        promptLine.firstChild.textContent = promptText;
+        const promptEl = document.getElementById('terminal-prompt-text');
+        if (promptEl) {
+            promptEl.textContent = promptText;
+        }
     }
 
     function closeOverlay() {
@@ -1130,7 +1138,7 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
                   printTerm("<br>");
                   printTerm("Press ENTER to continue to the report.");
             
-                  setTimeout(closeOverlay, 50000); 
+                  setTimeout(closeOverlay, 40000); 
               }
             }
         
