@@ -9,6 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     
     <style>
@@ -377,7 +383,7 @@
                     <div class="space-y-4">
                         <h3 class="text-2xl font-semibold text-blue-800">The New Reality of Code</h3>
                         <p class="text-base text-gray-700">
-                            Up to 90% of a typical application's codebase originates from external components. While ecosystems like npm and PyPI field trillions of downloads, this reliance creates a massive, porous boundary that attackers are actively exploiting.
+                            Up to 90% of a typical application's codebase originates from external components. While ecosystems like <a href="https://www.npmjs.com/" target="_blank" class="text-blue-600 hover:underline">npm</a> and <a href="https://pypi.org/" target="_blank" class="text-blue-600 hover:underline">PyPI</a> field trillions of downloads, this reliance creates a massive, porous boundary that attackers are actively exploiting.
                         </p>
                         <p class="text-base text-gray-700">
                             This application dashboard allows you to explore the primary threats, the core defensive strategies, and their practical integration into the development lifecycle.
@@ -390,7 +396,7 @@
         <section id="section-threat" class="mb-16">
             <h2 class="text-3xl font-bold text-gray-900 mb-4">The Evolving Threat Landscape</h2>
             <p class="text-lg text-gray-600 mb-8 max-w-4xl">
-                Attackers are no longer just targeting networks, they are targeting the supply chain itself. This is not a theoretical risk. In the past year, supply chain attacks <strong>doubled</strong>. In 2021 OWASP elevated "Vulnerable and Outdated Components" (A06:2021) in its Top 10, recognizing this critical, industrial-scale threat.
+                Attackers are no longer just targeting networks; they are targeting the supply chain itself. This is not a theoretical risk. Supply chain attacks <strong>doubled</strong> in 2024. This threat is now so significant that the upcoming <a href="https://owasp.org/Top10/" target="_blank" class="text-blue-600 hover:underline"><strong>OWASP Top 10 2025</strong></a> draft has elevated "Software Supply Chain Failures" to <strong>A03</strong>, the #3 most critical web application security risk, up from A06 in 2021.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
@@ -413,7 +419,7 @@
 
                 <div class="bg-white rounded-lg shadow-lg p-6">
                     <h3 class="text-2xl font-semibold text-blue-800 mb-4">Common Attack Vectors</h3>
-                    <p class="text-sm text-gray-600 mb-6">From simple typos to multi-year espionage, attackers exploit ambiguity and trust. Click a tab to learn about common methods.</p>
+                    <p class="text-sm text-gray-600 mb-6">From simple typos to multi-year social engineering, attackers exploit ambiguity and trust. Click a tab to learn about the most common vectors.</p>
                     
                     <div class="border-b border-gray-200 overflow-x-auto">
                         <nav class="flex space-x-2" aria-label="Tabs">
@@ -493,17 +499,20 @@
                 </div>
                 <div id="pane-sca" class="pillar-pane hidden">
                     <h3 class="text-2xl font-semibold text-blue-900 mb-4">Pillar II: Software Composition Analysis (SCA)</h3>
-                    <p class="text-base text-gray-700 mb-4">SCA tools are the "inspectors" that automate Governance. They scan a codebase to discover all components, including transitive dependencies (the dependencies of your dependencies).</p>
+                    <p class="text-base text-gray-700 mb-4">SCA tools are the "inspectors" that automate Governance. They scan a codebase to discover all components, including transitive dependencies (the dependencies of your dependencies), and check them against public vulnerability databases and your internal policies.</p>
                     <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><strong>Discovery:</strong> Identifies all open-source components and their versions.</li>
-                        <li><strong>Vulnerability Mapping:</strong> Cross-references components against public databases (like CVE) and private advisories to find known vulnerabilities.</li>
-                        <li><strong>License Enforcement:</strong> Detects the license of every component and flags violations against the Governance policy.</li>
-                        <li><strong>Continuous Monitoring:</strong> Runs in the IDE, in CI/CD pipelines, and on deployed applications to catch new vulnerabilities.</li>
+                        <li><strong>Discovery:</strong> Identifies all open-source components, versions, and their licenses.</li>
+                        <li><strong>Vulnerability Mapping:</strong> Cross-references components against public databases (like <a href="https://nvd.nist.gov/vuln" target="_blank" class="text-blue-600 hover:underline">NVD</a>, <a href="https://github.com/advisories" target="_blank" class="text-blue-600 hover:underline">GitHub Advisories</a>) and private threat intelligence feeds.</li>
+                        <li><strong>License Enforcement:</strong> Detects the license of every component and flags violations against the Governance policy (e.g., flagging "copyleft" licenses).</li>
+                        <li><strong>Continuous Monitoring:</strong> Runs in the IDE, in CI/CD pipelines, and on deployed applications to catch new vulnerabilities as they are disclosed.</li>
                     </ul>
+                    <p class="text-base text-gray-700 mt-4 p-4 bg-gray-50 rounded-lg border">
+                        <strong>Open-Source & Commercial Tools:</strong> While our paper focused on commercial platforms like <a href="https://snyk.io/" target="_blank" class="text-blue-600 hover:underline">Snyk</a> and <a href="https://www.sonatype.com/" target="_blank" class="text-blue-600 hover:underline">Sonatype</a>, mature open-source solutions are critical to this ecosystem. <a href="https://dependencytrack.org/" target="_blank" class="text-blue-600 hover:underline font-medium">OWASP Dependency-Track</a>, for example, is a powerful, widely-used platform that ingests SBOMs to provide continuous vulnerability monitoring and component analysis.
+                    </p>
                 </div>
                 <div id="pane-reg" class="pillar-pane hidden">
                     <h3 class="text-2xl font-semibold text-blue-900 mb-4">Pillar III: Private Registries</h3>
-                    <p class="text-base text-gray-700 mb-4">This is the most powerful <em>preventative</em> control. A private registry (or "artifact repository") acts as a "secure vault" or "walled garden" that sits between your developers and the public internet.</p>
+                    <p class="text-base text-gray-700 mb-4">This is the most powerful <i>preventative</i> control. A private registry (or "artifact repository") acts as a "secure vault" or "walled garden" that sits between your developers and the public internet.</p>
                     <ul class="list-disc list-inside space-y-2 text-gray-700">
                         <li><strong>Proxy & Cache:</strong> Developers pull packages from the private registry. The registry fetches and caches <em>only</em> approved, vetted components from public sources.</li>
                         <li><strong>Blocks Unknowns:</strong> Any attempt to download a non-approved package is blocked by default.</li>
@@ -515,9 +524,9 @@
                     <h3 class="text-2xl font-semibold text-blue-900 mb-4">Pillar IV: Software Bill of Materials (SBOM)</h3>
                     <p class="text-base text-gray-700 mb-4">An SBOM is a formal "ingredients list" for a piece of software. It's a machine-readable, interoperable file that inventories all components, their versions, and their relationships.</p>
                     <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><strong>Transparency:</strong> Provides a complete, verifiable list of what's inside an application. This is now a requirement for U.S. government contractors (EO 14028).</li>
-                        <li><strong>Instant Impact Analysis:</strong> When a new zero-day like Log4Shell is announced, organizations can query their SBOMs to know <em>in minutes</em> which applications are affected, instead of spending days scrambling.</li>
-                        <li><strong>Formats:</strong> Common standards include SPDX (Linux Foundation, good for licensing) and CycloneDX (OWASP, security-focused).</li>
+                        <li><strong>Transparency:</strong> Provides a complete, verifiable list of what's inside an application. This is now a requirement from regulatory bodies like the <a href="https://www.federalregister.gov/executive-order/14028" target="_blank" class="text-blue-600 hover:underline">US Executive Order 14028</a>, CISA, and the EU Cyber Resilience Act.</li>
+                        <li><strong>Instant Impact Analysis:</strong> When a new zero-day like Log4Shell is announced, organizations can query their SBOMs to know <i>in minutes</i> which applications are affected, instead of spending days scrambling.</li>
+                        <li><strong>Formats:</strong> Common standards include <a href="https://spdx.dev/" target="_blank" class="text-blue-600 hover:underline">SPDX</a> (Linux Foundation, good for licensing) and <a href="https://cyclonedx.org/" target="_blank" class="text-blue-600 hover:underline">CycloneDX</a> (OWASP, security-focused).</li>
                     </ul>
                 </div>
             </div>
@@ -566,7 +575,7 @@
         <section id="section-sdlc" class="mb-16">
             <h2 class="text-3xl font-bold text-gray-900 mb-4">Integrating Defense into the Secure SDLC</h2>
             <p class="text-lg text-gray-600 mb-8 max-w-4xl">
-                These pillars are not separate tools; they are a single, integrated process. Security must be "shifted left" and built into every stage of the Software Development Lifecycle (SDLC).
+                These pillars are not separate tools; they are a single, integrated process. Security must be "shifted left" and built into every stage of the Software Development Lifecycle (SDLC), transforming security from a final checkpoint into an automated, continuous part of development.
             </p>
             
             <div class="bg-white rounded-lg shadow-lg p-6 md:p-10">
@@ -582,23 +591,23 @@
                     </div>
                     <div class="sdlc-stage">
                         <h4 class="text-lg font-bold text-blue-800">2. CODE</h4>
-                        <p class="text-sm text-gray-600"><strong>SCA (II)</strong> in the IDE gives immediate feedback. References packages in private <strong>Registry (III)</strong>.</p>
+                        <p class="text-sm text-gray-600"><strong>SCA (II)</strong> in the IDE gives immediate feedback. Developers pull <em>only</em> from the private <strong>Registry (III)</strong>.</p>
                     </div>
                     <div class="sdlc-stage">
                         <h4 class="text-lg font-bold text-blue-800">3. BUILD</h4>
-                        <p class="text-sm text-gray-600"> Generate <strong>SBOM (IV)</strong> artifact.</p>
+                        <p class="text-sm text-gray-600">The build system generates the <strong>SBOM (IV)</strong> artifact from the verified components.</p>
                     </div>
                     <div class="sdlc-stage">
                         <h4 class="text-lg font-bold text-blue-800">4. TEST</h4>
-                        <p class="text-sm text-gray-600">Executes <strong>SCA (II)</strong> scan in CI/CD and enforces <strong>Governance & Security Policies (I)</strong>, acting as a gate.
+                        <p class="text-sm text-gray-600">CI/CD pipeline runs <strong>SCA (II)</strong> scan as an automated quality gate, enforcing <strong>Governance (I)</strong>.</p>
                     </div>
                     <div class="sdlc-stage">
                         <h4 class="text-lg font-bold text-blue-800">5. DEPLOY</h4>
-                        <p class="text-sm text-gray-600"><strong>SBOM (IV)</strong> is stored and distributed with the application. Final build artifact is pushed to the <strong>Registry (III)</strong>.</p>
+                        <p class="text-sm text-gray-600"><strong>SBOM (IV)</strong> is stored and distributed with the application. The final, verified artifact is pushed to the <strong>Registry (III)</strong>.</p>
                     </div>
                     <div class="sdlc-stage">
                         <h4 class="text-lg font-bold text-blue-800">6. MONITOR</h4>
-                        <p class="text-sm text-gray-600">Use <strong>SBOM (IV)</strong> + <strong>SCA (II)</strong> to monitor deployed apps for <em>new</em> vulnerabilities.</p>
+                        <p class="text-sm text-gray-600">Use <strong>SBOM (IV)</strong> + <strong>SCA (II)</strong> to monitor deployed apps for <i>newly</i> disclosed vulnerabilities.</p>
                     </div>
                 </div>
             </div>
@@ -622,8 +631,8 @@
                 <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500">
                     <h3 class="text-2xl font-semibold text-gray-800 mb-4">Future Directions</h3>
                     <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><strong>Producer-Side Defense:</strong> This report focuses on <em>consumer</em> defense. The future is integrating this with <em>producer</em> attestations like SLSA (Supply chain Levels for Software Artifacts).</li>
-                        <li><strong>Automation:</strong> AI and ML will play a larger role in anomaly detection, such as identifying malicious packages based on behavior rather than just known signatures.</li>
+                        <li><strong>Producer-Side Defense:</strong> This report focuses on <i>consumer</i> defense. The future is integrating this with <i>producer</i> attestations like <a href="https://slsa.dev/" target="_blank" class="text-blue-600 hover:underline">SLSA (Supply-chain Levels for Software Artifacts)</a>.</li>
+                        <li><strong>Automation & AI:</strong> AI and ML will play a larger role in anomaly detection. Instead of just matching known vulnerability signatures, they can identify malicious packages based on <i>behavior</i>. <a href="https://blog.cloudflare.com/how-we-train-ai-to-uncover-malicious-javascript-intent-and-make-web-surfing-safer/" target="_blank" class="text-blue-600 hover:underline font-medium">Cloudflare is already using AI</a> to analyze JavaScript intent, a clear example of this future direction.</li>
                         <li><strong>Holistic Security:</strong> This 4-pillar model forms the foundation for a mature, end-to-end secure software supply chain.</li>
                     </ul>
                 </div>
@@ -636,7 +645,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600">
                     <h3 class="text-2xl font-semibold text-blue-800 mb-3">1. Automation</h3>
-                    <p class="text-base text-gray-700">To scale security <em>with</em> development velocity, not against it. Security must be an automated, low-friction partner.</p>
+                    <p class="text-base text-gray-700">To scale security <i>with</i> development velocity, not against it. Security must be an automated, low-friction partner.</p>
                 </div>
                 <div class="bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600">
                     <h3 class="text-2xl font-semibold text-blue-800 mb-3">2. Transparency</h3>
@@ -653,8 +662,11 @@
     
     <footer class="text-center py-6 border-t border-gray-200 bg-white">
         <p class="text-sm text-gray-500">Based on "Securing the Dependency Perimeter: SCA, Policies, Private Registries, and SBOM in Secure Software Development" (Vieira & Fernandes, 2025)</p>
+        
+        <p class="text-sm text-gray-700 font-medium">Live Users: <span id="live-count">1</span></p>
     </footer>
 
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
@@ -771,16 +783,111 @@
         });
     </script>
 
-    <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const showTutorial = urlParams.get('st') === 'true';
+    
+    <script type="module">
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyDrW4OQ9I7gDc3Vpb9BYSzVVwcFCN2cm6w",
+          authDomain: "cdss-sdp.firebaseapp.com",
+          
+          databaseURL: "https://cdss-sdp-default-rtdb.europe-west1.firebasedatabase.app", 
+          projectId: "cdss-sdp",
+          storageBucket: "cdss-sdp.firebasestorage.app",
+          messagingSenderId: "368667974286",
+          appId: "1:368667974286:web:ea711ba0ede3ca4efb07df",
+          measurementId: "G-YTKRBES1DX"
+        };
 
-    if (!showTutorial) {
-        const overlay = document.getElementById("overlay-container");
-        if (overlay) {
-            overlay.remove();
+        
+        firebase.initializeApp(firebaseConfig);
+        
+        
+        const analytics = firebase.analytics();
+        
+        
+        const database = firebase.database();
+        
+        
+        
+        let userPresenceRef = null;
+        const liveUsersRef = database.ref('/liveUsers');
+
+        
+        userPresenceRef = liveUsersRef.push();
+        
+        
+        userPresenceRef.set({
+            state: 'overlay',
+            stage: 0,
+            joined: firebase.database.ServerValue.TIMESTAMP
+        });
+
+        
+        userPresenceRef.onDisconnect().remove();
+
+        
+        liveUsersRef.on('value', (snapshot) => {
+            const count = snapshot.numChildren(); 
+            const liveCountEl = document.getElementById('live-count');
+            if (liveCountEl) {
+                liveCountEl.textContent = count;
+            }
+        });
+        
+
+        
+        
+        analytics.logEvent('page_load', {
+            state: 'overlay',
+            stage: 0
+        });
+        
+        
+        let intersectionObserver = null;
+
+        function startSectionObserver() {
+            
+            const sections = document.querySelectorAll('main section');
+            
+            const options = {
+                root: null, 
+                rootMargin: '0px',
+                threshold: 0.5 
+            };
+
+            intersectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+                        
+                        
+                        analytics.logEvent('view_presentation_section', {
+                            section_id: sectionId 
+                        });
+                        
+                        
+                        if (userPresenceRef) {
+                            userPresenceRef.update({
+                                state: 'presentation',
+                                stage: sectionId
+                            });
+                        }
+                    }
+                });
+            }, options);
+
+            
+            sections.forEach(section => {
+                intersectionObserver.observe(section);
+            });
         }
-    } else {
+    
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const showTutorial = urlParams.get('st') === 'true';
+
+        
         const code = `
 
 <span class="kw">from</span> flasks <span class="kw">import</span> Flask
@@ -797,7 +904,7 @@ app = Flask(__name__)
 
 <span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
     app.run()
-`; 
+`;    
 
     const sbomJsonContent_before = `{
   "bomFormat": "CycloneDX",
@@ -881,437 +988,510 @@ r = redis.Redis(host=<span class="str">'localhost'</span>, port=6379, db=0)
 &lt;head&gt;
   &lt;title&gt;Presentation&lt;/title&gt;
 &lt;/head&gt;
-&lt;body&gt;
+&Body&gt;
   &lt;h1&gt;Main Presentation Page&lt;/h1&gt;
   &lt;p&gt;This is the main HTML file served by the Flask app.&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 `;
 
-    let i = 0;
-    const speed = 6;
-    const codeOut = document.getElementById("code-output");
-    const titleBar = document.getElementById("vscode-titlebar");
-    const sidebar = document.getElementById("vscode-sidebar");
+        let i = 0;
+        const speed = 6;
+        const codeOut = document.getElementById("code-output");
+        const titleBar = document.getElementById("vscode-titlebar");
+        const sidebar = document.getElementById("vscode-sidebar");
 
-    function showFileContent(filename) {
-        let content;
-        let fileTitle = filename;
-
-        switch (filename) {
-            case 'app.py':
-                content = code;
-                break;
-            case 'pip.conf':
-                content = pipConfContent.replace(/\n/g, "<br>");
-                break;
-            case 'sbom.json':
-                if (stage < 3) {
-                    content = sbomJsonContent_before.replace(/\n/g, "<br>");
-                } else {
-                    content = sbomJsonContent_after.replace(/\n/g, "<br>");
-                }
-                break;
-            case 'db_utils.py':
-                content = dbUtilsContent.replace(/\n/g, "<br>");
-                fileTitle = 'utils/db_utils.py';
-                break;
-            case 'cache_utils.py':
-                content = cacheUtilsContent.replace(/\n/g, "<br>");
-                fileTitle = 'utils/cache_utils.py';
-                break;
-            case 'presentation.html':
-                content = presentationHtmlContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                break;
-            default:
-                content = 'File not found.';
-        }
         
-        codeOut.innerHTML = content;
-        titleBar.textContent = `CDSS Code IDE - Secure the Dependency Perimeter — ${fileTitle}`;
+        function showFileContent(filename) {
+            let content;
+            let fileTitle = filename;
 
-        document.querySelectorAll('.file-link').forEach(link => {
-            if (link.dataset.filename === filename) {
-                link.classList.add('active-file');
-            } else {
-                link.classList.remove('active-file');
-            }
-        });
-    }
-
-    function typeCode() {
-      if (i < code.length) {
-        codeOut.innerHTML = code.slice(0, i) + '<span class="typing"></span>';
-        i++;
-        setTimeout(typeCode, speed);
-      } else {
-        codeOut.innerHTML = code;
-      }
-    }
-    if (document.getElementById("overlay-container")) {
-        typeCode();
-
-        sidebar.addEventListener('click', (e) => {
-            if (e.target.classList.contains('file-link')) {
-                const filename = e.target.dataset.filename;
-                showFileContent(filename);
-            }
-        });
-    }
-    
-    
-    let terminal = document.getElementById("vscode-terminal");
-    let input = document.getElementById("terminal-input");
-    let hint = document.getElementById("terminal-hint");
-    let resizer = document.getElementById("terminal-resizer");
-    let promptLine = document.querySelector(".terminal-prompt-line");
-
-    let stage = 0; 
-    let isClosing = false; 
-    let commandHistory = []; 
-    let historyIndex = 0; 
-    let currentDir = 'root';
-
-    const rootFiles = ['app.py', 'pip.conf', 'sbom.json', 'presentation.html'];
-    const rootDirs = ['utils/'];
-    const utilsFiles = ['db_utils.py', 'cache_utils.py'];
-    const utilsDirs = ['../'];
-
-    const baseCommands = ['ls', 'cat', 'cd', 'python', 'python3', 'pip install', 'help', 'clear', 'cls'];
-    const simCommands = ['python3 app.py', 'pip install flasks'];
-    const exitCommand = ['exit'];
-
-
-    function updatePrompt() {
-        const promptText = `cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ `;
-        const promptEl = document.getElementById('terminal-prompt-text');
-        if (promptEl) {
-            promptEl.textContent = promptText;
-        }
-    }
-
-    function closeOverlay() {
-        if (isClosing) return; 
-        isClosing = true;
-        
-        const overlay = document.getElementById("overlay-container");
-        if(overlay) {
-            overlay.style.opacity = "0";
-            setTimeout(() => overlay.remove(), 700);
-        }
-    }
-
-    function printTerm(msg) {
-      let d = document.createElement("div");
-      d.innerHTML = msg;
-      
-      const inputContainer = document.getElementById("terminal-input-container");
-      if (inputContainer) {
-          terminal.insertBefore(d, inputContainer);
-      } else {
-          terminal.appendChild(d); 
-      }
-
-      terminal.scrollTop = terminal.scrollHeight;
-    }
-    
-    function refreshHint() {
-      if (stage === 0)    hint.textContent = "Hint: type “python3 app.py” (or 'help')";
-      else if (stage === 1) hint.textContent = "Hint: type “pip install flasks” (or 'cat pip.conf')";
-      else if (stage === 2) hint.textContent = "Hint: run “python3 app.py” again";
-      else if (stage === 3) hint.textContent = "Type 'exit' to continue to the report.";
-      else hint.textContent = "";
-    }
-    
-    if(input) { 
-        input.addEventListener("keydown", e => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            
-            let cmd = input.value.trim();
-
-            if (stage === 3 && cmd === 'exit') {
-                printTerm(`cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ exit`);
-                closeOverlay();
-                return;
-            }
-            
-            if (cmd !== "") {
-                commandHistory.push(cmd);
-            }
-            historyIndex = commandHistory.length; 
-            
-            printTerm(`cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ ` + cmd);
-        
-            if (cmd.startsWith("sudo")) {
-                printTerm("[sudo] password for cdss-student: We trust you have received the proper authorization to perform this action. This incident will be reported.");
-            }
-            else if (cmd === 'clear' || cmd === 'cls') {
-                const children = Array.from(terminal.children);
-                children.forEach(child => {
-                    if (child.id !== 'terminal-input-container') {
-                        terminal.removeChild(child);
+            switch (filename) {
+                case 'app.py':
+                    content = code;
+                    break;
+                case 'pip.conf':
+                    content = pipConfContent.replace(/\n/g, "<br>");
+                    break;
+                case 'sbom.json':
+                    if (stage < 3) {
+                        content = sbomJsonContent_before.replace(/\n/g, "<br>");
+                    } else {
+                        content = sbomJsonContent_after.replace(/\n/g, "<br>");
                     }
-                });
-                if(stage !== 3) {
-                    stage = 0;
-                    currentDir = 'root';
-                    updatePrompt();
-                    refreshHint();
-                }
+                    break;
+                case 'db_utils.py':
+                    content = dbUtilsContent.replace(/\n/g, "<br>");
+                    fileTitle = 'utils/db_utils.py';
+                    break;
+                case 'cache_utils.py':
+                    content = cacheUtilsContent.replace(/\n/g, "<br>");
+                    fileTitle = 'utils/cache_utils.py';
+                    break;
+                case 'presentation.html':
+                    content = presentationHtmlContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    break;
+                default:
+                    content = 'File not found.';
             }
-            else if (cmd === 'help') {
-                printTerm("Follow the hints to run the simulation.");
-                printTerm("Available commands: ls, cat [file], cd [dir], clear, help");
-                printTerm("Simulation commands: python3 app.py, pip install flasks");
-                if (stage === 3) {
-                    printTerm("Type 'exit' to close this simulation and view the report.");
-                }
-            }
-            else if (cmd === 'cd utils' || cmd === 'cd utils/') {
-                if (currentDir === 'root') {
-                    currentDir = 'utils';
-                    updatePrompt();
-                } else {
-                    printTerm("No such file or directory: utils/");
-                }
-            }
-            else if (cmd === 'cd ..') {
-                if (currentDir === 'utils') {
-                    currentDir = 'root';
-                    updatePrompt();
-                }
-            }
-            else if (cmd === "ls") {
-                if (currentDir === 'root') {
-                    printTerm("app.py&nbsp;&nbsp;&nbsp;pip.conf&nbsp;&nbsp;&nbsp;sbom.json&nbsp;&nbsp;&nbsp;utils/&nbsp;&nbsp;&nbsp;presentation.html");
-                } else {
-                    printTerm("db_utils.py&nbsp;&nbsp;&nbsp;cache_utils.py");
-                }
-            }
-            else if (cmd === "ls utils/") {
-                if (currentDir === 'root') {
-                    printTerm("db_utils.py&nbsp;&nbsp;&nbsp;cache_utils.py");
-                } else {
-                    printTerm("ls: cannot access 'utils/': No such file or directory");
-                }
-            }
-            else if (cmd === "cat app.py" && currentDir === 'root') {
-                printTerm(code.replace(/\n/g, "<br>"));
-            }
-            else if (cmd === "cat sbom.json" && currentDir === 'root') {
-                if (stage < 3) {
-                    printTerm(sbomJsonContent_before.replace(/\n/g, "<br>"));
-                } else {
-                    printTerm(sbomJsonContent_after.replace(/\n/g, "<br>"));
-                }
-            }
-            else if (cmd === "cat pip.conf" && currentDir === 'root') {
-                printTerm(pipConfContent.replace(/\n/g, "<br>"));
-            }
-            else if (cmd === "cat utils/db_utils.py" && currentDir === 'root') {
-                printTerm(dbUtilsContent.replace(/\n/g, "<br>"));
-            }
-            else if (cmd === "cat utils/cache_utils.py" && currentDir === 'root') {
-                printTerm(cacheUtilsContent.replace(/\n/g, "<br>"));
-            }
-            else if (cmd === "cat presentation.html" && currentDir === 'root') {
-                printTerm(presentationHtmlContent.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
-            }
-            else if (cmd === "cat db_utils.py" && currentDir === 'utils') {
-                printTerm(dbUtilsContent.replace(/\n/g, "<br>"));
-            }
-            else if (cmd === "cat cache_utils.py" && currentDir === 'utils') {
-                printTerm(cacheUtilsContent.replace(/\n/g, "<br>"));
-            }
-            else if (stage === 0 && (cmd === "python3 app.py" || cmd === "python app.py")) {
-              if (currentDir !== 'root') {
-                  printTerm("python3: can't open file 'app.py': [Errno 2] No such file or directory");
-              } else {
-                  stage = 1;
-                  printTerm("Traceback (most recent call last):");
-                  printTerm("  ModuleNotFoundError: No module named <strong>'flasks'</strong>");
-                  printTerm("");
-                  printTerm("→ The module 'flasks' is missing. Try installing it:");
-                  printTerm("    pip install flasks");
-              }
-            }
-        
-            else if (stage === 1 && cmd === "pip install flasks") {
-              stage = 2;
-              printTerm("Collecting flasks");
-              printTerm("<span style='color:#ff5252'>WARNING: package signature could not be verified</span>");
-              printTerm("Installing… done.");
-              printTerm("");
-              printTerm("Now re-run the application:");
-              printTerm("    python3 app.py");
-            }
-        
-            else if (stage === 2 && (cmd === "python3 app.py" || cmd === "python app.py")) {
-              if (currentDir !== 'root') {
-                  printTerm("python3: can't open file 'app.py': [Errno 2] No such file or directory");
-              } else {
-                  stage = 3; 
-                  terminal.style.height = '60vh'; 
-                  
-                  printTerm("Running app…");
-                  printTerm("<span style='color:#ff5252'>================================================================</span>");
-                  printTerm("<span style='color:#ff5252'>⚠️ CRITICAL SECURITY FAILURE: MALICIOUS PACKAGE EXECUTED! ⚠️</span>");
-                  printTerm("<span style='color:#ff5252'>================================================================</span>");
-                  printTerm("You have been compromised by a <strong>TYPOSQUATTING</strong> attack.");
-                  printTerm("You installed <span style='color:#ff5252'>'flasks'</span>. The correct package is <span style='color:#10b981'>'flask'</span>.");
-                  printTerm("<br>");
-                  printTerm("<span style='color:#ff5252'>...malicious script 'flasks.py' executing...</span>");
-                  printTerm("<span style='color:#ff5252'>...accessing /home/cdss-student/.ssh/id_rsa...</span>");
-                  printTerm("<span style='color:#ff5252'>...keys exfiltrated to attacker server...</span>");
-                  printTerm("<span style='color:#ff5252'>...system compromised.</span>");
-                  printTerm("<br>");
-                  printTerm("The file <span style='color:#dcdcaa'>'pip.conf'</span> shows the secure private registry was bypassed.");
-                  printTerm("Without a <strong>Private Registry (Pillar III)</strong> and <strong>SCA (Pillar II)</strong> to block this, the malicious package was installed, compromising the entire system.");
-                  printTerm("An <strong>SBOM (Pillar IV)</strong> would now list 'flasks' as a dependency, confirming the breach.");
-                  printTerm("<br>");
-                  printTerm("<strong style='color: #10b981;'>Securing the Dependency Perimeter</strong>");
-                  printTerm("<strong>Authors: Gonçalo Vieira & Daniel Fernandes, MSI - UC 2025</strong>");
-                  printTerm("<br>");
-                  printTerm("<strong style='color:#facc15; background-color: #374151; padding: 2px 5px; border-radius: 3px;'>Type 'exit' to continue to the report, or keep exploring the terminal.</strong>");
             
-              }
-            }
+            codeOut.innerHTML = content;
+            titleBar.textContent = `CDSS Code IDE - Secure the Dependency Perimeter — ${fileTitle}`;
+
+            document.querySelectorAll('.file-link').forEach(link => {
+                if (link.dataset.filename === filename) {
+                    link.classList.add('active-file');
+                } else {
+                    link.classList.remove('active-file');
+                }
+            });
+        }
+
         
-            else {
-              if (cmd.startsWith('cat')) {
-                  printTerm("cat: " + cmd.split(' ')[1] + ": No such file or directory");
-              } else if (cmd !== "") { 
-                  printTerm("Command not recognized: " + cmd);
-              }
-            }
-        
-            input.value = "";
-            refreshHint();
-
-          } else if (e.key === "ArrowUp") {
-              e.preventDefault();
-              if (historyIndex > 0) {
-                  historyIndex--;
-                  input.value = commandHistory[historyIndex];
-                  input.setSelectionRange(input.value.length, input.value.length);
-              }
-          } else if (e.key === "ArrowDown") {
-              e.preventDefault();
-              if (historyIndex < commandHistory.length - 1) {
-                  historyIndex++;
-                  input.value = commandHistory[historyIndex];
-                  input.setSelectionRange(input.value.length, input.value.length);
-              } else if (historyIndex === commandHistory.length - 1) {
-                  historyIndex++;
-                  input.value = "";
-              }
-          } else if (e.key === "Tab") {
-              e.preventDefault();
-              let line = input.value;
-
-              if (line.startsWith('pip install ') && currentDir === 'root' && stage === 1) {
-                  const argPart = line.substring('pip install '.length);
-                  const simMatch = 'flasks'.startsWith(argPart) ? 'flasks' : null;
-
-                  if (simMatch) {
-                      input.value = 'pip install ' + simMatch + ' ';
-                  }
-                  return;
-              }
-
-              const parts = line.split(' ').filter(p => p.length > 0);
-
-              const currentFiles = (currentDir === 'root') ? rootFiles : utilsFiles;
-              const currentDirs = (currentDir === 'root') ? rootDirs : utilsDirs;
-              const allFiles = [...currentFiles, ...currentDirs];
-              let allCommands = (currentDir === 'root') ? [...baseCommands, ...simCommands] : [...baseCommands, ...utilsCommands];
-
-              if (stage === 3) {
-                  allCommands = [...allCommands, ...exitCommand];
-              }
-
-              if (parts.length === 0) return;
-
-              if (parts.length === 1 && !line.endsWith(' ')) {
-                  const partialCmd = parts[0];
-                  const match = allCommands.find(c => c.startsWith(partialCmd));
-                  if (match) {
-                      input.value = match;
-                      if (baseCommands.includes(match) && !['ls', 'clear', 'cls', 'help'].includes(match)) {
-                          input.value += ' ';
-                      }
-                  }
-              } else if (parts.length >= 2) {
-                  const command = parts[0];
-                  const partialArg = parts[parts.length - 1];
-                  
-                  let filesToSearch = [];
-                  if (command === 'cat' || command === 'python' || command === 'python3') {
-                      filesToSearch = currentFiles;
-                  } else if (command === 'cd') {
-                      filesToSearch = currentDirs;
-                  } else if (command === 'ls') {
-                      filesToSearch = (currentDir === 'root') ? rootDirs : [];
-                  }
-                  
-                  const matches = filesToSearch.filter(f => f.startsWith(partialArg));
-                  if (matches.length === 1) {
-                      parts[parts.length - 1] = matches[0];
-                      input.value = parts.join(' ');
-                      if (!matches[0].endsWith('/')) {
-                         input.value += ' ';
-                      }
-                  } else if (matches.length > 1) {
-                      printTerm(`cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ ` + line);
-                      printTerm(matches.join('&nbsp;&nbsp;&nbsp;'));
-                  }
-
-              } else if (parts.length === 1 && line.endsWith(' ')) {
-                  const command = parts[0];
-                  let filesToSearch = [];
-                  if (command === 'cat' || command === 'python' || command === 'python3') {
-                      filesToSearch = currentFiles;
-                  } else if (command === 'cd') {
-                      filesToSearch = currentDirs;
-                  } else if (command === 'ls') {
-                      filesToSearch = (currentDir === 'root') ? rootDirs : [];
-                  }
-                  
-                  if(filesToSearch.length === 1) {
-                      input.value += filesToSearch[0];
-                  } else if (filesToSearch.length > 1) {
-                      printTerm(`cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ ` + line);
-                      printTerm(filesToSearch.join('&nbsp;&nbsp;&nbsp;'));
-                  }
-              }
+        function typeCode() {
+          if (i < code.length) {
+            codeOut.innerHTML = code.slice(0, i) + '<span class="typing"></span>';
+            i++;
+            setTimeout(typeCode, speed);
+          } else {
+            codeOut.innerHTML = code;
           }
-        });
-    }
+        }
+        if (document.getElementById("overlay-container")) {
+            typeCode();
 
-    let isResizing = false;
-    if (resizer) {
-        resizer.addEventListener('mousedown', (e) => {
-            isResizing = true;
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
-        });
+            sidebar.addEventListener('click', (e) => {
+                if (e.target.classList.contains('file-link')) {
+                    const filename = e.target.dataset.filename;
+                    showFileContent(filename);
+                }
+            });
+        }
+        
+        
+        let terminal = document.getElementById("vscode-terminal");
+        let input = document.getElementById("terminal-input");
+        let hint = document.getElementById("terminal-hint");
+        let resizer = document.getElementById("terminal-resizer");
+        let promptLine = document.querySelector(".terminal-prompt-line");
 
-        function onMouseMove(e) {
-            if (!isResizing) return;
-            const newHeight = window.innerHeight - e.clientY;
-            if (newHeight > 100 && newHeight < window.innerHeight - 100) { 
-                terminal.style.height = `${newHeight}px`;
+        let stage = 0;  
+        let isClosing = false;  
+        let commandHistory = [];  
+        let historyIndex = 0;  
+        let currentDir = 'root';
+
+        
+        const rootFiles = ['app.py', 'pip.conf', 'sbom.json', 'presentation.html'];
+        const rootDirs = ['utils/'];
+        const utilsFiles = ['db_utils.py', 'cache_utils.py'];
+        const utilsDirs = ['../'];
+        const baseCommands = ['ls', 'cat', 'cd', 'python', 'python3', 'pip install', 'help', 'clear', 'cls'];
+        const simCommands = ['python3 app.py', 'pip install flasks'];
+        const exitCommand = ['exit'];
+
+
+        function updatePrompt() {
+            const promptText = `cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ `;
+            const promptEl = document.getElementById('terminal-prompt-text');
+            if (promptEl) {
+                promptEl.textContent = promptText;
             }
         }
 
-        function onMouseUp() {
-            isResizing = false;
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+        function closeOverlay() {
+            if (isClosing) return;  
+            isClosing = true;
+            
+            const stateUpdate = {
+                final_overlay_stage: stage,
+                state: 'presentation',
+                stage: 'section-overview' 
+            };
+
+            
+            analytics.logEvent('overlay_exit', stateUpdate);
+
+            
+            if (userPresenceRef) {
+                userPresenceRef.update(stateUpdate);
+            }
+
+            
+            startSectionObserver();
+            
+            const overlay = document.getElementById("overlay-container");
+            if(overlay) {
+                overlay.style.opacity = "0";
+                setTimeout(() => overlay.remove(), 700);
+            }
         }
-    }
-} 
+
+        
+        function printTerm(msg) {
+          let d = document.createElement("div");
+          d.innerHTML = msg;
+          
+          const inputContainer = document.getElementById("terminal-input-container");
+          if (inputContainer) {
+              terminal.insertBefore(d, inputContainer);
+          } else {
+              terminal.appendChild(d);  
+          }
+
+          terminal.scrollTop = terminal.scrollHeight;
+        }
+        
+        
+        function refreshHint() {
+          if (stage === 0)     hint.textContent = "Hint: type “python3 app.py” (or 'help')";
+          else if (stage === 1) hint.textContent = "Hint: type “pip install flasks” (or 'cat pip.conf')";
+          else if (stage === 2) hint.textContent = "Hint: run “python3 app.py” again";
+          else if (stage === 3 || !showTutorial) hint.textContent = "Type 'exit' to continue to the report.";
+          else hint.textContent = "";
+        }
+        
+        if(input) { 
+            input.addEventListener("keydown", e => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                
+                let cmd = input.value.trim();
+
+                if (cmd === 'exit' && (stage === 3 || !showTutorial)) {
+                    printTerm(`cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ exit`);
+                    closeOverlay();
+                    return;
+                }
+                
+                if (cmd !== "") {
+                    commandHistory.push(cmd);
+                }
+                historyIndex = commandHistory.length;  
+                
+                printTerm(`cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ ` + cmd);
+        
+                if (cmd.startsWith("sudo")) {
+                    
+                    analytics.logEvent('easter_egg_sudo');
+                    
+                    
+                    if (userPresenceRef) {
+                        
+                        userPresenceRef.child('easter_egg_sudo_count').set(firebase.database.ServerValue.increment(1));
+                    }
+                    
+                    printTerm("[sudo] password for cdss-student: We trust you have received the proper authorization to perform this action. This incident will be reported.");
+                }
+                else if (cmd === 'clear' || cmd === 'cls') {
+                    const children = Array.from(terminal.children);
+                    children.forEach(child => {
+                        if (child.id !== 'terminal-input-container') {
+                            terminal.removeChild(child);
+                        }
+                    });
+                    if(stage !== 3) {
+                        stage = 0;
+                        
+                        analytics.logEvent('overlay_reset', { stage: 0 });
+                        
+                        if (userPresenceRef) userPresenceRef.update({ stage: 0 });
+
+                        currentDir = 'root';
+                        updatePrompt();
+                        refreshHint();
+                    }
+                }
+                
+                else if (cmd === 'help') {
+                    printTerm("Follow the hints to run the simulation.");
+                    printTerm("Available commands: ls, cat [file], cd [dir], clear, help");
+                    printTerm("Simulation commands: python3 app.py, pip install flasks");
+                    if (stage === 3 || !showTutorial) {
+                        printTerm("Type 'exit' to close this simulation and view the report.");
+                    }
+                }
+                else if (cmd === 'cd utils' || cmd === 'cd utils/') {
+                    if (currentDir === 'root') {
+                        currentDir = 'utils';
+                        updatePrompt();
+                    } else {
+                        printTerm("No such file or directory: utils/");
+                    }
+                }
+                else if (cmd === 'cd ..') {
+                    if (currentDir === 'utils') {
+                        currentDir = 'root';
+                        updatePrompt();
+                    }
+                }
+                else if (cmd === "ls") {
+                    if (currentDir === 'root') {
+                        printTerm("app.py&nbsp;&nbsp;&nbsp;pip.conf&nbsp;&nbsp;&nbsp;sbom.json&nbsp;&nbsp;&nbsp;utils/&nbsp;&nbsp;&nbsp;presentation.html");
+                    } else {
+                        printTerm("db_utils.py&nbsp;&nbsp;&nbsp;cache_utils.py");
+                    }
+                }
+                else if (cmd === "ls utils/") {
+                    if (currentDir === 'root') {
+                        printTerm("db_utils.py&nbsp;&nbsp;&nbsp;cache_utils.py");
+                    } else {
+                        printTerm("ls: cannot access 'utils/': No such file or directory");
+                    }
+                }
+                else if (cmd === "cat app.py" && currentDir === 'root') {
+                    printTerm(code.replace(/\n/g, "<br>"));
+                }
+                else if (cmd === "cat sbom.json" && currentDir === 'root') {
+                    if (stage < 3) {
+                        printTerm( sbomJsonContent_before.replace(/\n/g, "<br>"));
+                    } else {
+                        printTerm( sbomJsonContent_after.replace(/\n/g, "<br>"));
+                    }
+                }
+                else if (cmd === "cat pip.conf" && currentDir === 'root') {
+                    printTerm(pipConfContent.replace(/\n/g, "<br>"));
+                }
+                else if (cmd === "cat utils/db_utils.py" && currentDir === 'root') {
+                    printTerm(dbUtilsContent.replace(/\n/g, "<br>"));
+                }
+                else if (cmd === "cat utils/cache_utils.py" && currentDir === 'root') {
+                    printTerm(cacheUtilsContent.replace(/\n/g, "<br>"));
+                }
+                else if (cmd === "cat presentation.html" && currentDir === 'root') {
+                    printTerm(presentationHtmlContent.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+                }
+                else if (cmd === "cat db_utils.py" && currentDir === 'utils') {
+                    printTerm(dbUtilsContent.replace(/\n/g, "<br>"));
+                }
+                else if (cmd === "cat cache_utils.py" && currentDir === 'utils') {
+                    printTerm(cacheUtilsContent.replace(/\n/g, "<br>"));
+                }
+
+                
+                
+                else if (stage === 0 && (cmd === "python3 app.py" || cmd === "python app.py")) {
+                  if (currentDir !== 'root') {
+                        printTerm("python3: can't open file 'app.py': [Errno 2] No such file or directory");
+                  } else {
+                        stage = 1;
+                        
+                        
+                        analytics.logEvent('overlay_event', { 
+                            stage_complete: 0,
+                            event_details: 'ModuleNotFoundError'
+                        });
+                        
+                        
+                        if (userPresenceRef) userPresenceRef.update({ stage: 1 });
+                        
+                        printTerm("Traceback (most recent call last):");
+                        printTerm("  ModuleNotFoundError: No module named <strong>'flasks'</strong>");
+                        printTerm("");
+                        printTerm("→ The module 'flasks' is missing. Try installing it:");
+                        printTerm("    pip install flasks");
+                  }
+                }
+                
+                else if ((stage === 1 || stage === 0) && cmd === "pip install flasks") {
+                  stage = 2;
+                  
+                  
+                  analytics.logEvent('overlay_event', { 
+                      stage_complete: 1,
+                      event_details: 'pip_install_flasks'
+                  });
+
+                  
+                  if (userPresenceRef) userPresenceRef.update({ stage: 2 });
+
+                  printTerm("Collecting flasks");
+                  printTerm("<span style='color:#ff5252'>WARNING: package signature could not be verified</span>");
+                  printTerm("Installing… done.");
+                  printTerm("");
+                  printTerm("Now re-run the application:");
+                  printTerm("    python3 app.py");
+                }
+                
+                
+                else if (stage === 2 && (cmd === "python3 app.py" || cmd === "python app.py")) {
+                  if (currentDir !== 'root') {
+                        printTerm("python3: can't open file 'app.py': [Errno 2] No such file or directory");
+                  } else {
+                        stage = 3;  
+                        
+                        
+                        analytics.logEvent('overlay_event', { 
+                            stage_complete: 2,
+                            event_details: 'compromised'
+                        });
+
+                        
+                        if (userPresenceRef) userPresenceRef.update({ stage: 3 });
+
+                        terminal.style.height = '60vh';  
+                        
+                        printTerm("Running app…");
+                        printTerm("<span style='color:#ff5252'>================================================================</span>");
+                        printTerm("<span style='color:#ff5252'>⚠️ CRITICAL SECURITY FAILURE: MALICIOUS PACKAGE EXECUTED! ⚠️</span>");
+                        printTerm("<span style='color:#ff5252'>================================================================</span>");
+                        printTerm("You have been compromised by a <strong>TYPOSQUATTING</strong> attack.");
+                        printTerm("You installed <span style='color:#ff5252'>'flasks'</span>. The correct package is <span style='color:#10b981'>'flask'</span>.");
+                        printTerm("<br>");
+                        printTerm("<span style='color:#ff5252'>...malicious script 'flasks.py' executing...</span>");
+                        printTerm("<span style='color:#ff5252'>...accessing /home/cdss-student/.ssh/id_rsa...</span>");
+                        printTerm("<span style='color:#ff5252'>...keys exfiltrated to attacker server...</span>");
+                        printTerm("<span style='color:#ff5252'>...system compromised.</span>");
+                        printTerm("<br>");
+                        printTerm("Your <span style='color:#dcdcaa'>'pip.conf'</span> file shows the secure private registry was bypassed.");
+                        printTerm("Without proper supply chain defenses, the malicious package was installed.");
+                        printTerm("As we'll cover in the presentation, tools like <strong>Private Registries</strong>, <strong>Software Composition Analysis (SCA)</strong>, and <strong>Software Bills of Materials (SBOMs)</strong> are critical to prevent this.");
+                        printTerm("Your <span style='color:#dcdcaa'>'sbom.json'</span> file has now been updated to include the malicious 'flasks' dependency. Use <strong style='color:#dcdcaa'>cat sbom.json</strong> to see the change.");
+                        printTerm("<br>");
+                        printTerm("<strong style='color: #10b981;'>Securing the Dependency Perimeter</strong>");
+                        printTerm("<strong>Authors: Gonçalo Vieira & Daniel Fernandes, MSI - UC 2025</strong>");
+                        printTerm("<br>");
+                        printTerm("<strong style='color:#facc15; background-color: #374151; padding: 2px 5px; border-radius: 3px;'>Type 'exit' to continue to the report, or keep exploring the terminal.</strong>");
+                  
+                  }
+                }
+        
+                else {
+                  if (cmd.startsWith('cat')) {
+                        printTerm("cat: " + cmd.split(' ')[1] + ": No such file or directory");
+                  } else if (cmd !== "") {  
+                        printTerm("Command not recognized: " + cmd);
+                  }
+                }
+        
+                input.value = "";
+                refreshHint();
+
+              } 
+              
+              else if (e.key === "ArrowUp") {
+                  e.preventDefault();
+                  if (historyIndex > 0) {
+                      historyIndex--;
+                      input.value = commandHistory[historyIndex];
+                      input.setSelectionRange(input.value.length, input.value.length);
+                  }
+              } else if (e.key === "ArrowDown") {
+                  e.preventDefault();
+                  if (historyIndex < commandHistory.length - 1) {
+                      historyIndex++;
+                      input.value = commandHistory[historyIndex];
+                      input.setSelectionRange(input.value.length, input.value.length);
+                  } else if (historyIndex === commandHistory.length - 1) {
+                      historyIndex++;
+                      input.value = "";
+                  }
+              } else if (e.key === "Tab") {
+                  e.preventDefault();
+                  let line = input.value;
+
+                  if (line.startsWith('pip install ') && currentDir === 'root' && stage === 1) {
+                      const argPart = line.substring('pip install '.length);
+                      const simMatch = 'flasks'.startsWith(argPart) ? 'flasks' : null;
+
+                      if (simMatch) {
+                          input.value = 'pip install ' + simMatch + ' ';
+                      }
+                      return;
+                  }
+
+                  const parts = line.split(' ').filter(p => p.length > 0);
+
+                  const currentFiles = (currentDir === 'root') ? rootFiles : utilsFiles;
+                  const currentDirs = (currentDir === 'root') ? rootDirs : utilsDirs;
+                  const allFiles = [...currentFiles, ...currentDirs];
+                  let allCommands = (currentDir === 'root') ? [...baseCommands, ...simCommands] : [...baseCommands];
+
+                  if (stage === 3 || !showTutorial) {
+                      allCommands = [...allCommands, ...exitCommand];
+                  }
+
+                  if (parts.length === 0) return;
+
+                  if (parts.length === 1 && !line.endsWith(' ')) {
+                      const partialCmd = parts[0];
+                      const match = allCommands.find(c => c.startsWith(partialCmd));
+                      if (match) {
+                          input.value = match;
+                          if (baseCommands.includes(match) && !['ls', 'clear', 'cls', 'help'].includes(match)) {
+                              input.value += ' ';
+                          }
+                      }
+                  } else if (parts.length >= 2) {
+                      const command = parts[0];
+                      const partialArg = parts[parts.length - 1];
+                      
+                      let filesToSearch = [];
+                      if (command === 'cat' || command === 'python' || command === 'python3') {
+                          filesToSearch = currentFiles;
+                      } else if (command === 'cd') {
+                          filesToSearch = currentDirs;
+                      } else if (command === 'ls') {
+                          filesToSearch = (currentDir === 'root') ? rootDirs : [];
+                      }
+                      
+                      const matches = filesToSearch.filter(f => f.startsWith(partialArg));
+                      if (matches.length === 1) {
+                          parts[parts.length - 1] = matches[0];
+                          input.value = parts.join(' ');
+                          if (!matches[0].endsWith('/')) {
+                             input.value += ' ';
+                          }
+                      } else if (matches.length > 1) {
+                          printTerm(`cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ ` + line);
+                          printTerm(matches.join('&nbsp;&nbsp;&nbsp;'));
+                      }
+
+                  } else if (parts.length === 1 && line.endsWith(' ')) {
+                      const command = parts[0];
+                      let filesToSearch = [];
+                      if (command === 'cat' || command === 'python' || command === 'python3') {
+                          filesToSearch = currentFiles;
+                      } else if (command === 'cd') {
+                          filesToSearch = currentDirs;
+                      } else if (command === 'ls') {
+                          filesToSearch = (currentDir === 'root') ? rootDirs : [];
+                      }
+                      
+                      if(filesToSearch.length === 1) {
+                          input.value += filesToSearch[0];
+                      } else if (filesToSearch.length > 1) {
+                          printTerm(`cdss-student@ucserver:~/presentation${currentDir === 'utils' ? '/utils' : ''}$ ` + line);
+                          printTerm(filesToSearch.join('&nbsp;&nbsp;&nbsp;'));
+                      }
+                  }
+              }
+            });
+        }
+
+        
+        let isResizing = false;
+        if (resizer) {
+            resizer.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            });
+
+            function onMouseMove(e) {
+                if (!isResizing) return;
+                const newHeight = window.innerHeight - e.clientY;
+                if (newHeight > 100 && newHeight < window.innerHeight - 100) { 
+                    terminal.style.height = `${newHeight}px`;
+                }
+            }
+
+            function onMouseUp() {
+                isResizing = false;
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+        }
     </script>
 
 </body>
